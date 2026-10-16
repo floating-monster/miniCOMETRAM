@@ -1,0 +1,26 @@
+sudo
+docker
+run
+--rm
+--network
+none
+--read-only
+--tmpfs
+/tmp:rw,nosuid,nodev
+--user
+1000:1000
+-e
+HOME=/tmp
+-v
+/home/gwen/github-publish/miniCOMETRAM/verify_skyram_01_i3tw8cbc/inputs:/input:ro
+-v
+/home/gwen/github-publish/miniCOMETRAM/verify_skyram_01_i3tw8cbc:/verify:rw
+-w
+/verify
+--entrypoint
+/bin/sh
+skyram-fresh:193r2-openram-r2
+-c
+
+exec magic -dnull -noconsole  -rcfile /opt/pdk/sky130A/libs.tech/magic/sky130A.magicrc  /verify/check.tcl
+

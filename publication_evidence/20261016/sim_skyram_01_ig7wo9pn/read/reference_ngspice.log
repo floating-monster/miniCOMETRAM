@@ -1,0 +1,81 @@
+Warning: m=xx on .subckt line will override multiplier m hierarchy!
+
+
+Note: Compatibility modes selected: hs a
+
+
+Circuit: * cometram r4 extracted integrated functional test
+
+option SCALE: Scale is set to 1e-06 for instance and model parameters
+option SCALE: Scale is set to 1e-06 for instance and model parameters
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+dout                               1.66556e-07
+sa_en                                        0
+pc_b                                       1.8
+vdd                                        1.8
+pc                                           0
+we                                         1.8
+en                                           0
+a                                            0
+dl                                           0
+dr                                         1.8
+bpcb#branch                                  0
+ven#branch                                   0
+vpc#branch                                   0
+vwe#branch                                   0
+vdr#branch                                   0
+vdl#branch                                   0
+va#branch                                    0
+vdd#branch                        -0.000147163
+vsa#branch                                   0
+
+ Reference value :  0.00000e+00 Reference value :  1.01950e-08 Reference value :  2.01030e-08 Reference value :  3.11950e-08 Reference value :  4.15650e-08
+No. of Data Rows : 5140
+
+  Measurements for Transient Analysis
+
+bl_pre0             =  1.799862e+00
+br_pre0             =  1.799739e+00
+bl_read0            =  1.394872e-04
+br_read0            =  1.801383e+00
+we0                 =  0.000000e+00
+pc0                 =  0.000000e+00
+selected0           =  1.800000e+00
+other0              =  1.037183e-07
+bl_pre1             =  1.799996e+00
+br_pre1             =  1.799994e+00
+bl_read1            =  1.767547e+00
+br_read1            =  5.449866e-05
+we1                 =  0.000000e+00
+pc1                 =  0.000000e+00
+selected1           =  1.800000e+00
+other1              =  1.643501e-07
+r0_after0_q         =  1.989635e-07
+r0_after0_qb        =  1.800000e+00
+r1_after0_q         =  1.800000e+00
+r1_after0_qb        =  1.667228e-07
+r0_after1_q         =  1.666856e-07
+r0_after1_qb        =  1.800000e+00
+r1_after1_q         =  1.800000e+00
+r1_after1_qb        =  1.949782e-07
+pcb_read0           =  1.800000e+00
+pcb_read1           =  1.800000e+00
+bl_release_peak0    =  1.840832e+00 at=  2.410000e-08
+br_release_peak0    =  1.862844e+00 at=  2.410000e-08
+bl_release_peak1    =  1.840901e+00 at=  3.810000e-08
+br_release_peak1    =  1.863041e+00 at=  3.810000e-08
+dout_read0          =  1.665506e-07
+dout_read1          =  1.800000e+00
+sa_read0            =  1.800000e+00
+sa_read1            =  1.800000e+00
+dout_reset0         =  1.665519e-07
+dout_reset1         =  1.665555e-07
+
+ngspice-41 done

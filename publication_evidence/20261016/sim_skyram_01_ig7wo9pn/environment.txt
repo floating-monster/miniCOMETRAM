@@ -1,0 +1,6 @@
+이미지=skyram-fresh:193r2-openram-r2
+추출 회로=/home/gwen/github-publish/miniCOMETRAM/verify_skyram_01_8xez6s4_/layout_raw.spice
+PDK=/opt/pdk/sky130A
+비교 기준=기존 PASS 로그의 모든 측정값과 출력 정밀도에서 수치 동일
+기존 임계값 판정 코드=미확보
+RC 후보 시험=이번 범위 밖

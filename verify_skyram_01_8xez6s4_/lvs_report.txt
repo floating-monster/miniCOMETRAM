@@ -1,0 +1,88 @@
+
+Circuit 1 cell sky130_fd_pr__pfet_01v8 and Circuit 2 cell sky130_fd_pr__pfet_01v8 are black boxes.
+Warning: Equate pins:  cell sky130_fd_pr__pfet_01v8 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell sky130_fd_pr__pfet_01v8 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: sky130_fd_pr__pfet_01v8         |Circuit 2: sky130_fd_pr__pfet_01v8         
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes sky130_fd_pr__pfet_01v8 and sky130_fd_pr__pfet_01v8 are equivalent.
+
+Circuit 1 cell sky130_fd_pr__nfet_01v8 and Circuit 2 cell sky130_fd_pr__nfet_01v8 are black boxes.
+Warning: Equate pins:  cell sky130_fd_pr__nfet_01v8 is a placeholder, treated as a black box.
+Warning: Equate pins:  cell sky130_fd_pr__nfet_01v8 is a placeholder, treated as a black box.
+
+Subcircuit pins:
+Circuit 1: sky130_fd_pr__nfet_01v8         |Circuit 2: sky130_fd_pr__nfet_01v8         
+-------------------------------------------|-------------------------------------------
+1                                          |1                                          
+2                                          |2                                          
+3                                          |3                                          
+4                                          |4                                          
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes sky130_fd_pr__nfet_01v8 and sky130_fd_pr__nfet_01v8 are equivalent.
+Flattening unmatched subcell comet_decoded_array_2x1 in circuit comet_ram_2x1 (0)(1 instance)
+Flattening unmatched subcell comet_row_decoder_1to2 in circuit comet_ram_2x1 (0)(1 instance)
+Flattening unmatched subcell comet_inv_r0 in circuit comet_ram_2x1 (0)(3 instances)
+Flattening unmatched subcell mos_w2400_l150_m1_nf1_id1 in circuit comet_ram_2x1 (0)(3 instances)
+Flattening unmatched subcell mos_w1600_l150_m1_nf1_id0 in circuit comet_ram_2x1 (0)(3 instances)
+Flattening unmatched subcell comet_nand2 in circuit comet_ram_2x1 (0)(2 instances)
+Flattening unmatched subcell mos_w2400_l150_m1_nf1_id1 in circuit comet_ram_2x1 (0)(4 instances)
+Flattening unmatched subcell mos_w3200_l150_m1_nf1_id0 in circuit comet_ram_2x1 (0)(4 instances)
+Flattening unmatched subcell comet_array_2x1 in circuit comet_ram_2x1 (0)(1 instance)
+Flattening unmatched subcell comet_bitcell_6t in circuit comet_ram_2x1 (0)(2 instances)
+Flattening unmatched subcell comet_inv_r0 in circuit comet_ram_2x1 (0)(4 instances)
+Flattening unmatched subcell mos_w2400_l150_m1_nf1_id1 in circuit comet_ram_2x1 (0)(4 instances)
+Flattening unmatched subcell mos_w1600_l150_m1_nf1_id0 in circuit comet_ram_2x1 (0)(4 instances)
+Flattening unmatched subcell mos_w800_l150_m1_nf1_id0 in circuit comet_ram_2x1 (0)(4 instances)
+Flattening unmatched subcell comet_precharge_3p in circuit comet_ram_2x1 (0)(1 instance)
+Flattening unmatched subcell mos_w800_l150_m1_nf1_id1 in circuit comet_ram_2x1 (0)(3 instances)
+Flattening unmatched subcell comet_write_driver in circuit comet_ram_2x1 (0)(1 instance)
+Flattening unmatched subcell comet_inv_r0 in circuit comet_ram_2x1 (0)(2 instances)
+Flattening unmatched subcell mos_w2400_l150_m1_nf1_id1 in circuit comet_ram_2x1 (0)(2 instances)
+Flattening unmatched subcell mos_w1600_l150_m1_nf1_id0 in circuit comet_ram_2x1 (0)(2 instances)
+Flattening unmatched subcell mos_w4800_l150_m1_nf1_id1 in circuit comet_ram_2x1 (0)(4 instances)
+Flattening unmatched subcell mos_w3200_l150_m1_nf1_id0 in circuit comet_ram_2x1 (0)(4 instances)
+Flattening unmatched subcell comet_sense_amp in circuit comet_ram_2x1 (0)(1 instance)
+Flattening unmatched subcell mos_w1600_l150_m1_nf1_id0 in circuit comet_ram_2x1 (0)(2 instances)
+Flattening unmatched subcell mos_w420_l600_m1_nf1_id0 in circuit comet_ram_2x1 (0)(1 instance)
+Flattening unmatched subcell mos_w2400_l150_m1_nf1_id1 in circuit comet_ram_2x1 (0)(3 instances)
+Flattening unmatched subcell comet_inv_r0 in circuit comet_ram_2x1 (0)(3 instances)
+Flattening unmatched subcell mos_w2400_l150_m1_nf1_id1 in circuit comet_ram_2x1 (0)(3 instances)
+Flattening unmatched subcell mos_w1600_l150_m1_nf1_id0 in circuit comet_ram_2x1 (0)(3 instances)
+
+Subcircuit summary:
+Circuit 1: comet_ram_2x1                   |Circuit 2: comet_ram_2x1                   
+-------------------------------------------|-------------------------------------------
+sky130_fd_pr__pfet_01v8 (26)               |sky130_fd_pr__pfet_01v8 (26)               
+sky130_fd_pr__nfet_01v8 (27)               |sky130_fd_pr__nfet_01v8 (27)               
+Number of devices: 53                      |Number of devices: 53                      
+Number of nets: 33                         |Number of nets: 33                         
+---------------------------------------------------------------------------------------
+Netlists match uniquely.
+
+Subcircuit pins:
+Circuit 1: comet_ram_2x1                   |Circuit 2: comet_ram_2x1                   
+-------------------------------------------|-------------------------------------------
+sa_en                                      |sa_en                                      
+dout                                       |dout                                       
+pc_b                                       |pc_b                                       
+we                                         |we                                         
+en                                         |en                                         
+a                                          |a                                          
+din                                        |din                                        
+vss                                        |vss                                        
+vdd                                        |vdd                                        
+---------------------------------------------------------------------------------------
+Cell pin lists are equivalent.
+Device classes comet_ram_2x1 and comet_ram_2x1 are equivalent.
+
+Final result: Circuits match uniquely.
+.

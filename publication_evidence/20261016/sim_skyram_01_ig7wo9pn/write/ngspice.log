@@ -1,0 +1,65 @@
+Warning: m=xx on .subckt line will override multiplier m hierarchy!
+
+
+Note: Compatibility modes selected: hs a
+
+
+Circuit: * cometram r4 extracted integrated functional test
+
+option SCALE: Scale is set to 1e-06 for instance and model parameters
+option SCALE: Scale is set to 1e-06 for instance and model parameters
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+pc_b                                       1.8
+vdd                                        1.8
+we                                         1.8
+en                                           0
+a                                            0
+sa_en                                        0
+dl                                           0
+dout                               1.66556e-07
+dr                                         1.8
+pc                                           0
+vsa#branch                                   0
+ven#branch                                   0
+vpc#branch                                   0
+vwe#branch                                   0
+vdr#branch                                   0
+vdl#branch                                   0
+va#branch                                    0
+vdd#branch                        -0.000147163
+vpcb#branch                                  0
+
+ Reference value :  0.00000e+00 Reference value :  1.04550e-08 Reference value :  2.04150e-08 Reference value :  3.08150e-08
+No. of Data Rows : 4116
+
+  Measurements for Transient Analysis
+
+r0_init_q           =  1.665740e-07
+r0_init_qb          =  1.800000e+00
+r1_init_q           =  1.800000e+00
+r1_init_qb          =  1.625598e-07
+r0_select_q         =  1.800000e+00
+r0_select_qb        =  3.582464e-07
+r1_unselected_q     =  1.800000e+00
+r1_unselected_qb    =  1.666676e-07
+r0_hold_q           =  1.800000e+00
+r0_hold_qb          =  1.625596e-07
+r1_hold_q           =  1.800000e+00
+r1_hold_qb          =  1.625609e-07
+r0_unselected_q     =  1.800000e+00
+r0_unselected_qb    =  1.667164e-07
+r1_select_q         =  3.684220e-07
+r1_select_qb        =  1.800000e+00
+r0_final_q          =  1.800000e+00
+r0_final_qb         =  1.665899e-07
+r1_final_q          =  1.626054e-07
+r1_final_qb         =  1.800000e+00
+
+ngspice-41 done

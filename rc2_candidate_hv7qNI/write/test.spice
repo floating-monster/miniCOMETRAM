@@ -1,0 +1,53 @@
+* COMETRAM R4 extracted integrated functional test
+.lib "/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+.include "cell.spice"
+VPCB pc_b 0 1.8
+
+
+.option scale=1u
+.temp 27
+VDD vdd 0 1.8
+XTOP vdd 0 a en dl we pc_b sa_en dout comet_ram_2x1
+.model SWTEST SW(Ron=10 Roff=1e15 Vt=0.9 Vh=0)
+* Ideal write switch removed
+* Ideal write switch removed
+CBL xtop.a_0_n11917.t0 0 10f
+CBR xtop.a_1600_n11917.t0 0 10f
+
+VA a 0 PWL(0 0 10n 0 10.1n 1.8 20n 1.8 20.1n 0 30n 0 30.1n 1.8)
+VDL dl 0 PWL(0 0 10n 0 10.1n 1.8 30n 1.8 30.1n 0)
+VDR dr 0 PWL(0 1.8 10n 1.8 10.1n 0 30n 0 30.1n 1.8)
+VWE we 0 PWL(0 1.8 8n 1.8 8.1n 0 11n 0 11.1n 1.8 18n 1.8 18.1n 0 21n 0 21.1n 1.8 28n 1.8 28.1n 0 31n 0 31.1n 1.8 38n 1.8 38.1n 0)
+VPC pc 0 0
+VEN en 0 PWL(0 0 2n 0 2.1n 1.8 7n 1.8 7.1n 0 12n 0 12.1n 1.8 17n 1.8 17.1n 0 22n 0 22.1n 1.8 27n 1.8 27.1n 0 32n 0 32.1n 1.8 37n 1.8 37.1n 0)
+.tran 10p 40n
+.meas tran r0_init_q FIND v(xtop.a_20000_6483.t0) AT=19n
+.meas tran r0_init_qb FIND v(xtop.a_19896_8041.t0) AT=19n
+.meas tran r1_init_q FIND v(xtop.a_20000_14483.t0) AT=19n
+.meas tran r1_init_qb FIND v(xtop.a_19896_16041.t0) AT=19n
+.meas tran r0_select_q FIND v(xtop.a_20000_6483.t0) AT=26n
+.meas tran r0_select_qb FIND v(xtop.a_19896_8041.t0) AT=26n
+.meas tran r1_unselected_q FIND v(xtop.a_20000_14483.t0) AT=26n
+.meas tran r1_unselected_qb FIND v(xtop.a_19896_16041.t0) AT=26n
+.meas tran r0_hold_q FIND v(xtop.a_20000_6483.t0) AT=29n
+.meas tran r0_hold_qb FIND v(xtop.a_19896_8041.t0) AT=29n
+.meas tran r1_hold_q FIND v(xtop.a_20000_14483.t0) AT=29n
+.meas tran r1_hold_qb FIND v(xtop.a_19896_16041.t0) AT=29n
+.meas tran r0_unselected_q FIND v(xtop.a_20000_6483.t0) AT=36n
+.meas tran r0_unselected_qb FIND v(xtop.a_19896_8041.t0) AT=36n
+.meas tran r1_select_q FIND v(xtop.a_20000_14483.t0) AT=36n
+.meas tran r1_select_qb FIND v(xtop.a_19896_16041.t0) AT=36n
+.meas tran r0_final_q FIND v(xtop.a_20000_6483.t0) AT=39n
+.meas tran r0_final_qb FIND v(xtop.a_19896_8041.t0) AT=39n
+.meas tran r1_final_q FIND v(xtop.a_20000_14483.t0) AT=39n
+.meas tran r1_final_qb FIND v(xtop.a_19896_16041.t0) AT=39n
+VSA sa_en 0 0
+COUT dout 0 10f
+.control
+set wr_singlescale
+set wr_vecnames
+run
+wrdata waveform.tsv v(xtop.a_0_n11917.t0) v(xtop.a_1600_n11917.t0) v(dout) v(en) v(we) i(vdd)
+quit
+.endc
+.end

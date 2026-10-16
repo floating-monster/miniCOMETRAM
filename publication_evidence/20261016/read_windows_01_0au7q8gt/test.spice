@@ -1,0 +1,109 @@
+* COMETRAM R4 extracted integrated functional test
+.lib "/opt/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+.include "cell.spice"
+COUT dout 0 10f
+* Enable only after the selected read wordline has risen.
+VSA sa_en 0 PWL(0 0 27n 0 27.1n 1.8 29.5n 1.8 29.6n 0 41n 0 41.1n 1.8 43.5n 1.8 43.6n 0)
+
+
+* Convert the existing active-high test control to active-low PMOS control.
+BPCB pc_b 0 V=V(vdd)-V(pc)
+
+.option scale=1u
+.temp 27
+VDD vdd 0 1.8
+XTOP vdd 0 a en dl we pc_b sa_en dout comet_ram_2x1
+.model SWTEST SW(Ron=10 Roff=1e15 Vt=0.9 Vh=0)
+* Ideal write switch removed
+* Ideal write switch removed
+* Removed ideal precharge switch
+* Removed ideal precharge switch
+CBL xtop.a_0_n11917.t0 0 10f
+CBR xtop.a_1600_n11917.t0 0 10f
+
+VA a 0 PWL(0 0 10n 0 10.1n 1.8 20n 1.8 20.1n 0 34n 0 34.1n 1.8)
+VDL dl 0 PWL(0 0 10n 0 10.1n 1.8)
+VDR dr 0 PWL(0 1.8 10n 1.8 10.1n 0)
+VWE we 0 PWL(0 1.8 8n 1.8 8.1n 0 11n 0 11.1n 1.8 18n 1.8 18.1n 0)
+VPC pc 0 PWL(0 0 21n 0 21.1n 1.8 24n 1.8 24.1n 0 35n 0 35.1n 1.8 38n 1.8 38.1n 0)
+VEN en 0 PWL(0 0 2n 0 2.1n 1.8 7n 1.8 7.1n 0 12n 0 12.1n 1.8 17n 1.8 17.1n 0 26n 0 26.1n 1.8 30n 1.8 30.1n 0 40n 0 40.1n 1.8 44n 1.8 44.1n 0)
+.tran 10p 50n
+.meas tran bl_pre0 FIND v(xtop.a_0_n11917.t0) AT=23n
+.meas tran br_pre0 FIND v(xtop.a_1600_n11917.t0) AT=23n
+.meas tran bl_read0 FIND v(xtop.a_0_n11917.t0) AT=29n
+.meas tran br_read0 FIND v(xtop.a_1600_n11917.t0) AT=29n
+.meas tran we0 FIND v(we) AT=29n
+.meas tran pc0 FIND v(pc) AT=29n
+.meas tran selected0 FIND v(xtop.a_6400_83.t0) AT=29n
+.meas tran other0 FIND v(xtop.a_12800_83.t0) AT=29n
+.meas tran bl_pre1 FIND v(xtop.a_0_n11917.t0) AT=37n
+.meas tran br_pre1 FIND v(xtop.a_1600_n11917.t0) AT=37n
+.meas tran bl_read1 FIND v(xtop.a_0_n11917.t0) AT=43n
+.meas tran br_read1 FIND v(xtop.a_1600_n11917.t0) AT=43n
+.meas tran we1 FIND v(we) AT=43n
+.meas tran pc1 FIND v(pc) AT=43n
+.meas tran selected1 FIND v(xtop.a_12800_83.t0) AT=43n
+.meas tran other1 FIND v(xtop.a_6400_83.t0) AT=43n
+.meas tran r0_after0_q FIND v(xtop.a_20000_6483.t0) AT=33n
+.meas tran r0_after0_qb FIND v(xtop.a_19896_8041.t0) AT=33n
+.meas tran r1_after0_q FIND v(xtop.a_20000_14483.t0) AT=33n
+.meas tran r1_after0_qb FIND v(xtop.a_19896_16041.t0) AT=33n
+.meas tran r0_after1_q FIND v(xtop.a_20000_6483.t0) AT=47n
+.meas tran r0_after1_qb FIND v(xtop.a_19896_8041.t0) AT=47n
+.meas tran r1_after1_q FIND v(xtop.a_20000_14483.t0) AT=47n
+.meas tran r1_after1_qb FIND v(xtop.a_19896_16041.t0) AT=47n
+
+.meas tran pcb_read0 FIND v(pc_b) AT=29n
+.meas tran pcb_read1 FIND v(pc_b) AT=43n
+.meas tran bl_release_peak0 MAX v(xtop.a_0_n11917.t0) FROM=24n TO=26n
+.meas tran br_release_peak0 MAX v(xtop.a_1600_n11917.t0) FROM=24n TO=26n
+.meas tran bl_release_peak1 MAX v(xtop.a_0_n11917.t0) FROM=38n TO=40n
+.meas tran br_release_peak1 MAX v(xtop.a_1600_n11917.t0) FROM=38n TO=40n
+.control
+set wr_singlescale
+set wr_vecnames
+run
+wrdata waveform.tsv v(xtop.a_0_n11917.t0) v(xtop.a_1600_n11917.t0) v(sa_en) v(dout) i(vdd)
+wrdata net_00.tsv v(a) v(xtop.a.n0) v(xtop.a.t0) v(xtop.a.t1) v(xtop.a.t2) v(xtop.a.t3)
+wrdata net_01.tsv v(xtop.a_0_83.n0) v(xtop.a_0_83.t0) v(xtop.a_0_83.t1) v(xtop.a_0_83.t2) v(xtop.a_0_83.t3)
+wrdata net_02.tsv v(xtop.a_0_n11917.n0) v(xtop.a_0_n11917.n1) v(xtop.a_0_n11917.n2) v(xtop.a_0_n11917.n3) v(xtop.a_0_n11917.n4) v(xtop.a_0_n11917.t0) v(xtop.a_0_n11917.t1) v(xtop.a_0_n11917.t2) v(xtop.a_0_n11917.t3) v(xtop.a_0_n11917.t4) v(xtop.a_0_n11917.t5) v(xtop.a_0_n11917.t6)
+wrdata net_03.tsv v(xtop.a_0_n23917.n0) v(xtop.a_0_n23917.n1) v(xtop.a_0_n23917.t0) v(xtop.a_0_n23917.t1) v(xtop.a_0_n23917.t2) v(xtop.a_0_n23917.t3)
+wrdata net_04.tsv v(xtop.a_0_n35917.n0) v(xtop.a_0_n35917.t0) v(xtop.a_0_n35917.t1) v(xtop.a_0_n35917.t2) v(xtop.a_0_n35917.t3)
+wrdata net_05.tsv v(xtop.a_11200_n23917.t0) v(xtop.a_11200_n23917.t1)
+wrdata net_06.tsv v(xtop.a_12800_83.n0) v(xtop.a_12800_83.n1) v(xtop.a_12800_83.t0) v(xtop.a_12800_83.t1) v(xtop.a_12800_83.t2) v(xtop.a_12800_83.t3)
+wrdata net_07.tsv v(xtop.a_16000_n24000.t0) v(xtop.a_16000_n24000.t1)
+wrdata net_08.tsv v(xtop.a_1600_n11917.n0) v(xtop.a_1600_n11917.n1) v(xtop.a_1600_n11917.n2) v(xtop.a_1600_n11917.n3) v(xtop.a_1600_n11917.n4) v(xtop.a_1600_n11917.t0) v(xtop.a_1600_n11917.t1) v(xtop.a_1600_n11917.t2) v(xtop.a_1600_n11917.t3) v(xtop.a_1600_n11917.t4) v(xtop.a_1600_n11917.t5) v(xtop.a_1600_n11917.t6)
+wrdata net_09.tsv v(xtop.a_19896_16041.n0) v(xtop.a_19896_16041.n1) v(xtop.a_19896_16041.t0) v(xtop.a_19896_16041.t1) v(xtop.a_19896_16041.t2) v(xtop.a_19896_16041.t3) v(xtop.a_19896_16041.t4)
+wrdata net_10.tsv v(xtop.a_19896_8041.n0) v(xtop.a_19896_8041.n1) v(xtop.a_19896_8041.t0) v(xtop.a_19896_8041.t1) v(xtop.a_19896_8041.t2) v(xtop.a_19896_8041.t3) v(xtop.a_19896_8041.t4)
+wrdata net_11.tsv v(xtop.a_20000_14483.n0) v(xtop.a_20000_14483.n1) v(xtop.a_20000_14483.t0) v(xtop.a_20000_14483.t1) v(xtop.a_20000_14483.t2) v(xtop.a_20000_14483.t3) v(xtop.a_20000_14483.t4)
+wrdata net_12.tsv v(xtop.a_20000_6483.n0) v(xtop.a_20000_6483.n1) v(xtop.a_20000_6483.t0) v(xtop.a_20000_6483.t1) v(xtop.a_20000_6483.t2) v(xtop.a_20000_6483.t3) v(xtop.a_20000_6483.t4)
+wrdata net_13.tsv v(xtop.a_20800_n23917.t0) v(xtop.a_20800_n23917.t1)
+wrdata net_14.tsv v(xtop.a_3200_169.n0) v(xtop.a_3200_169.n1) v(xtop.a_3200_169.t0) v(xtop.a_3200_169.t1) v(xtop.a_3200_169.t2) v(xtop.a_3200_169.t3) v(xtop.a_3200_169.t4)
+wrdata net_15.tsv v(xtop.a_3200_83.t0) v(xtop.a_3200_83.t1)
+wrdata net_16.tsv v(xtop.a_3200_n23917.n0) v(xtop.a_3200_n23917.n1) v(xtop.a_3200_n23917.t0) v(xtop.a_3200_n23917.t1) v(xtop.a_3200_n23917.t2) v(xtop.a_3200_n23917.t3)
+wrdata net_17.tsv v(xtop.a_3200_n35917.n0) v(xtop.a_3200_n35917.t0) v(xtop.a_3200_n35917.t1) v(xtop.a_3200_n35917.t2) v(xtop.a_3200_n35917.t3)
+wrdata net_18.tsv v(xtop.a_6400_83.n0) v(xtop.a_6400_83.n1) v(xtop.a_6400_83.t0) v(xtop.a_6400_83.t1) v(xtop.a_6400_83.t2) v(xtop.a_6400_83.t3)
+wrdata net_19.tsv v(xtop.a_6400_n24000.t0) v(xtop.a_6400_n24000.t1)
+wrdata net_20.tsv v(xtop.a_9600_169.n0) v(xtop.a_9600_169.n1) v(xtop.a_9600_169.t0) v(xtop.a_9600_169.t1) v(xtop.a_9600_169.t2) v(xtop.a_9600_169.t3) v(xtop.a_9600_169.t4)
+wrdata net_21.tsv v(xtop.a_9600_83.t0) v(xtop.a_9600_83.t1)
+wrdata net_22.tsv v(xtop.a_9600_n35917.n0) v(xtop.a_9600_n35917.n1) v(xtop.a_9600_n35917.t0) v(xtop.a_9600_n35917.t1) v(xtop.a_9600_n35917.t2)
+wrdata net_23.tsv v(xtop.a_9600_n36000.n0) v(xtop.a_9600_n36000.n1) v(xtop.a_9600_n36000.t0) v(xtop.a_9600_n36000.t1) v(xtop.a_9600_n36000.t2) v(xtop.a_9600_n36000.t3)
+wrdata net_24.tsv v(xtop.a_n104_n35959.n0) v(xtop.a_n104_n35959.n1) v(xtop.a_n104_n35959.t0) v(xtop.a_n104_n35959.t1) v(xtop.a_n104_n35959.t2) v(xtop.a_n104_n35959.t3) v(xtop.a_n104_n35959.t4)
+wrdata net_25.tsv v(dl) v(xtop.din.n0) v(xtop.din.n1) v(xtop.din.t0) v(xtop.din.t1) v(xtop.din.t2) v(xtop.din.t3)
+wrdata net_26.tsv v(dout) v(xtop.dout.n0) v(xtop.dout.t0) v(xtop.dout.t1)
+wrdata net_27.tsv v(en) v(xtop.en.n0) v(xtop.en.t0) v(xtop.en.t1) v(xtop.en.t2) v(xtop.en.t3)
+wrdata net_28.tsv v(pc_b) v(xtop.pc_b.n0) v(xtop.pc_b.n1) v(xtop.pc_b.t0) v(xtop.pc_b.t1) v(xtop.pc_b.t2)
+wrdata net_29.tsv v(sa_en) v(xtop.sa_en.n0) v(xtop.sa_en.t0) v(xtop.sa_en.t1)
+wrdata net_30.tsv v(vdd) v(xtop.vdd.n0) v(xtop.vdd.n1) v(xtop.vdd.n10) v(xtop.vdd.n11) v(xtop.vdd.n12) v(xtop.vdd.n13) v(xtop.vdd.n14) v(xtop.vdd.n15) v(xtop.vdd.n16) v(xtop.vdd.n17) v(xtop.vdd.n18) v(xtop.vdd.n19) v(xtop.vdd.n2) v(xtop.vdd.n20) v(xtop.vdd.n21) v(xtop.vdd.n22) v(xtop.vdd.n23) v(xtop.vdd.n24) v(xtop.vdd.n25) v(xtop.vdd.n26) v(xtop.vdd.n27) v(xtop.vdd.n28) v(xtop.vdd.n29) v(xtop.vdd.n3) v(xtop.vdd.n30) v(xtop.vdd.n31) v(xtop.vdd.n32) v(xtop.vdd.n33) v(xtop.vdd.n34) v(xtop.vdd.n35) v(xtop.vdd.n36) v(xtop.vdd.n37) v(xtop.vdd.n38) v(xtop.vdd.n39) v(xtop.vdd.n4) v(xtop.vdd.n40) v(xtop.vdd.n41) v(xtop.vdd.n42) v(xtop.vdd.n43) v(xtop.vdd.n44) v(xtop.vdd.n45) v(xtop.vdd.n46) v(xtop.vdd.n5) v(xtop.vdd.n6) v(xtop.vdd.n7) v(xtop.vdd.n8) v(xtop.vdd.n9) v(xtop.vdd.t0) v(xtop.vdd.t1) v(xtop.vdd.t10) v(xtop.vdd.t11) v(xtop.vdd.t12) v(xtop.vdd.t13) v(xtop.vdd.t14) v(xtop.vdd.t15) v(xtop.vdd.t16) v(xtop.vdd.t17) v(xtop.vdd.t18) v(xtop.vdd.t19) v(xtop.vdd.t2) v(xtop.vdd.t20) v(xtop.vdd.t21) v(xtop.vdd.t22) v(xtop.vdd.t23) v(xtop.vdd.t24) v(xtop.vdd.t25) v(xtop.vdd.t26) v(xtop.vdd.t27) v(xtop.vdd.t28) v(xtop.vdd.t29) v(xtop.vdd.t3) v(xtop.vdd.t30) v(xtop.vdd.t31) v(xtop.vdd.t32) v(xtop.vdd.t33) v(xtop.vdd.t34) v(xtop.vdd.t35) v(xtop.vdd.t36) v(xtop.vdd.t37) v(xtop.vdd.t38) v(xtop.vdd.t39) v(xtop.vdd.t4) v(xtop.vdd.t40) v(xtop.vdd.t41) v(xtop.vdd.t42) v(xtop.vdd.t43) v(xtop.vdd.t44) v(xtop.vdd.t45) v(xtop.vdd.t46) v(xtop.vdd.t47) v(xtop.vdd.t48) v(xtop.vdd.t5) v(xtop.vdd.t6) v(xtop.vdd.t7) v(xtop.vdd.t8) v(xtop.vdd.t9)
+wrdata net_31.tsv v(xtop.vss.n0) v(xtop.vss.n1) v(xtop.vss.n10) v(xtop.vss.n11) v(xtop.vss.n12) v(xtop.vss.n13) v(xtop.vss.n14) v(xtop.vss.n15) v(xtop.vss.n16) v(xtop.vss.n17) v(xtop.vss.n18) v(xtop.vss.n19) v(xtop.vss.n2) v(xtop.vss.n20) v(xtop.vss.n21) v(xtop.vss.n22) v(xtop.vss.n23) v(xtop.vss.n24) v(xtop.vss.n25) v(xtop.vss.n26) v(xtop.vss.n27) v(xtop.vss.n28) v(xtop.vss.n29) v(xtop.vss.n3) v(xtop.vss.n30) v(xtop.vss.n31) v(xtop.vss.n32) v(xtop.vss.n33) v(xtop.vss.n34) v(xtop.vss.n35) v(xtop.vss.n36) v(xtop.vss.n37) v(xtop.vss.n38) v(xtop.vss.n39) v(xtop.vss.n4) v(xtop.vss.n40) v(xtop.vss.n41) v(xtop.vss.n42) v(xtop.vss.n43) v(xtop.vss.n44) v(xtop.vss.n45) v(xtop.vss.n46) v(xtop.vss.n47) v(xtop.vss.n48) v(xtop.vss.n49) v(xtop.vss.n5) v(xtop.vss.n50) v(xtop.vss.n51) v(xtop.vss.n52) v(xtop.vss.n53) v(xtop.vss.n54) v(xtop.vss.n55) v(xtop.vss.n56) v(xtop.vss.n57) v(xtop.vss.n58) v(xtop.vss.n59) v(xtop.vss.n6) v(xtop.vss.n60) v(xtop.vss.n61) v(xtop.vss.n62) v(xtop.vss.n63) v(xtop.vss.n64) v(xtop.vss.n65) v(xtop.vss.n66) v(xtop.vss.n67) v(xtop.vss.n68) v(xtop.vss.n69) v(xtop.vss.n7) v(xtop.vss.n70) v(xtop.vss.n71) v(xtop.vss.n72) v(xtop.vss.n73) v(xtop.vss.n74) v(xtop.vss.n75) v(xtop.vss.n76) v(xtop.vss.n77) v(xtop.vss.n78) v(xtop.vss.n79) v(xtop.vss.n8) v(xtop.vss.n9) v(xtop.vss.t0) v(xtop.vss.t1) v(xtop.vss.t10) v(xtop.vss.t11) v(xtop.vss.t12) v(xtop.vss.t13) v(xtop.vss.t14) v(xtop.vss.t15) v(xtop.vss.t16) v(xtop.vss.t17) v(xtop.vss.t18) v(xtop.vss.t19) v(xtop.vss.t2) v(xtop.vss.t20) v(xtop.vss.t21) v(xtop.vss.t22) v(xtop.vss.t23) v(xtop.vss.t24) v(xtop.vss.t25) v(xtop.vss.t26) v(xtop.vss.t27) v(xtop.vss.t28) v(xtop.vss.t29) v(xtop.vss.t3) v(xtop.vss.t30) v(xtop.vss.t31) v(xtop.vss.t32) v(xtop.vss.t33) v(xtop.vss.t34) v(xtop.vss.t35) v(xtop.vss.t36) v(xtop.vss.t37) v(xtop.vss.t38) v(xtop.vss.t39) v(xtop.vss.t4) v(xtop.vss.t40) v(xtop.vss.t41) v(xtop.vss.t42) v(xtop.vss.t43) v(xtop.vss.t5) v(xtop.vss.t6) v(xtop.vss.t7) v(xtop.vss.t8) v(xtop.vss.t9)
+wrdata net_32.tsv v(we) v(xtop.we.n0) v(xtop.we.n1) v(xtop.we.t0) v(xtop.we.t1) v(xtop.we.t2) v(xtop.we.t3)
+quit
+.endc
+
+.meas tran dout_read0 FIND v(dout) AT=29n
+.meas tran dout_read1 FIND v(dout) AT=43n
+.meas tran sa_read0 FIND v(sa_en) AT=29n
+.meas tran sa_read1 FIND v(sa_en) AT=43n
+.meas tran dout_reset0 FIND v(dout) AT=33n
+.meas tran dout_reset1 FIND v(dout) AT=47n
+.end

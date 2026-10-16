@@ -1,0 +1,26 @@
+sudo
+docker
+run
+--rm
+--network
+none
+--read-only
+--tmpfs
+/tmp:rw,nosuid,nodev
+--user
+1000:1000
+-e
+HOME=/tmp
+-v
+/home/gwen/workspace/COMETRAM_R9/verify_skyram_01_8xez6s4_/inputs:/input:ro
+-v
+/home/gwen/workspace/COMETRAM_R9/verify_skyram_01_8xez6s4_:/verify:rw
+-w
+/verify
+--entrypoint
+/bin/sh
+sha256:b12e325417c221e4db0d1ad09e1282edc81bf5e566c004cfef0c9415e4d75371
+-c
+
+exec netgen -batch lvs  "/input/comet_ram_2x1.spice comet_ram_2x1"  "/verify/layout_raw.spice comet_ram_2x1"  /opt/pdk/sky130A/libs.tech/netgen/setup.tcl  /verify/lvs_report.txt
+

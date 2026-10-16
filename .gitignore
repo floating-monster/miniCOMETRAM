@@ -1,0 +1,14 @@
+/target/
+__pycache__/
+*.pyc
+
+# New run directories
+/verify_skyram_01_*/
+/sim_skyram_01_*/
+/rc2_skyram_01_*/
+/all_nodes_01_*/
+/read_windows_01_*/
+
+# Historical baselines required by current scripts
+!/verify_skyram_01_8xez6s4_/
+!/all_nodes_01__2nonvzs/

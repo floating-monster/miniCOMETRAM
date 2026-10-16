@@ -1,0 +1,4 @@
+이미지=sha256:b12e325417c221e4db0d1ad09e1282edc81bf5e566c004cfef0c9415e4d75371
+PDK=/opt/pdk/sky130A
+범위=기존 53T GDS의 DRC·LVS 재검증
+기능 시험 및 RC 정확도 검증=이번 실행 범위 밖

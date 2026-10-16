@@ -1,0 +1,26 @@
+
+Magic 8.3 revision 413 - Compiled on Sun Jul 16 00:53:48 UTC 2023.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+Using NULL graphics device.
+Processing system .magicrc file
+Sourcing design .magicrc for technology sky130A ...
+2 Magic internal units = 1 Lambda
+Input style sky130(vendor): scaleFactor=2, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    ubm 
+Scaled tech values by 2 / 1 to match internal grid scaling
+Loading sky130A Device Generator Menu ...
+Loading "/verify/check.tcl" from command line.
+Warning: Calma reading is not undoable!  I hope that's OK.
+Library written using GDS-II Release 3.0
+Library name: TOP
+Reading "comet_ram_2x1".
+CIF file read warning: CIF style sky130(vendor): units rescaled by factor of 5 / 1
+DRC style is now "drc(full)"
+Loading DRC CIF style.
+No errors found.
+DRC_COUNT=0
+Extracting comet_ram_2x1 into comet_ram_2x1.ext:
+exttospice finished.
+FULL_CHECK_SCRIPT_COMPLETED

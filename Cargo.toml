@@ -1,0 +1,10 @@
+[package]
+name = "cometram_r0"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+substrate = { git = "https://github.com/ucb-substrate/substrate", rev = "60a8a4b8e150fb1a83d247e4b6da26a25b0309bc" }
+subgates = { git = "https://github.com/ucb-substrate/substrate", rev = "60a8a4b8e150fb1a83d247e4b6da26a25b0309bc" }
+subgeom = { git = "https://github.com/ucb-substrate/substrate", rev = "60a8a4b8e150fb1a83d247e4b6da26a25b0309bc" }
+sky130_open_pdk = { git = "https://github.com/ucb-substrate/substrate", rev = "60a8a4b8e150fb1a83d247e4b6da26a25b0309bc" }

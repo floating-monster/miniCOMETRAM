@@ -1,0 +1,76 @@
+* COMETRAM R4 extracted integrated functional test
+.lib "/pdk/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+.include "cell.spice"
+COUT dout 0 10f
+* Enable only after the selected read wordline has risen.
+VSA sa_en 0 PWL(0 0 27n 0 27.1n 1.8 29.5n 1.8 29.6n 0 41n 0 41.1n 1.8 43.5n 1.8 43.6n 0)
+
+
+* Convert the existing active-high test control to active-low PMOS control.
+BPCB pc_b 0 V=V(vdd)-V(pc)
+
+.option scale=1u
+.temp 27
+VDD vdd 0 1.8
+XTOP vdd 0 a en dl we pc_b sa_en dout comet_ram_2x1
+.model SWTEST SW(Ron=10 Roff=1e15 Vt=0.9 Vh=0)
+* Ideal write switch removed
+* Ideal write switch removed
+* Removed ideal precharge switch
+* Removed ideal precharge switch
+CBL xtop.a_0_n11917.t0 0 10f
+CBR xtop.a_1600_n11917.t0 0 10f
+
+VA a 0 PWL(0 0 10n 0 10.1n 1.8 20n 1.8 20.1n 0 34n 0 34.1n 1.8)
+VDL dl 0 PWL(0 0 10n 0 10.1n 1.8)
+VDR dr 0 PWL(0 1.8 10n 1.8 10.1n 0)
+VWE we 0 PWL(0 1.8 8n 1.8 8.1n 0 11n 0 11.1n 1.8 18n 1.8 18.1n 0)
+VPC pc 0 PWL(0 0 21n 0 21.1n 1.8 24n 1.8 24.1n 0 35n 0 35.1n 1.8 38n 1.8 38.1n 0)
+VEN en 0 PWL(0 0 2n 0 2.1n 1.8 7n 1.8 7.1n 0 12n 0 12.1n 1.8 17n 1.8 17.1n 0 26n 0 26.1n 1.8 30n 1.8 30.1n 0 40n 0 40.1n 1.8 44n 1.8 44.1n 0)
+.tran 10p 50n
+.meas tran bl_pre0 FIND v(xtop.a_0_n11917.t0) AT=23n
+.meas tran br_pre0 FIND v(xtop.a_1600_n11917.t0) AT=23n
+.meas tran bl_read0 FIND v(xtop.a_0_n11917.t0) AT=29n
+.meas tran br_read0 FIND v(xtop.a_1600_n11917.t0) AT=29n
+.meas tran we0 FIND v(we) AT=29n
+.meas tran pc0 FIND v(pc) AT=29n
+.meas tran selected0 FIND v(xtop.a_6400_83.t0) AT=29n
+.meas tran other0 FIND v(xtop.a_12800_83.t0) AT=29n
+.meas tran bl_pre1 FIND v(xtop.a_0_n11917.t0) AT=37n
+.meas tran br_pre1 FIND v(xtop.a_1600_n11917.t0) AT=37n
+.meas tran bl_read1 FIND v(xtop.a_0_n11917.t0) AT=43n
+.meas tran br_read1 FIND v(xtop.a_1600_n11917.t0) AT=43n
+.meas tran we1 FIND v(we) AT=43n
+.meas tran pc1 FIND v(pc) AT=43n
+.meas tran selected1 FIND v(xtop.a_12800_83.t0) AT=43n
+.meas tran other1 FIND v(xtop.a_6400_83.t0) AT=43n
+.meas tran r0_after0_q FIND v(xtop.a_20000_6483.t0) AT=33n
+.meas tran r0_after0_qb FIND v(xtop.a_19896_8041.t0) AT=33n
+.meas tran r1_after0_q FIND v(xtop.a_20000_14483.t0) AT=33n
+.meas tran r1_after0_qb FIND v(xtop.a_19896_16041.t0) AT=33n
+.meas tran r0_after1_q FIND v(xtop.a_20000_6483.t0) AT=47n
+.meas tran r0_after1_qb FIND v(xtop.a_19896_8041.t0) AT=47n
+.meas tran r1_after1_q FIND v(xtop.a_20000_14483.t0) AT=47n
+.meas tran r1_after1_qb FIND v(xtop.a_19896_16041.t0) AT=47n
+
+.meas tran pcb_read0 FIND v(pc_b) AT=29n
+.meas tran pcb_read1 FIND v(pc_b) AT=43n
+.meas tran bl_release_peak0 MAX v(xtop.a_0_n11917.t0) FROM=24n TO=26n
+.meas tran br_release_peak0 MAX v(xtop.a_1600_n11917.t0) FROM=24n TO=26n
+.meas tran bl_release_peak1 MAX v(xtop.a_0_n11917.t0) FROM=38n TO=40n
+.meas tran br_release_peak1 MAX v(xtop.a_1600_n11917.t0) FROM=38n TO=40n
+.control
+set wr_singlescale
+set wr_vecnames
+run
+wrdata waveform.tsv v(xtop.a_0_n11917.t0) v(xtop.a_1600_n11917.t0) v(sa_en) v(dout) i(vdd)
+quit
+.endc
+
+.meas tran dout_read0 FIND v(dout) AT=29n
+.meas tran dout_read1 FIND v(dout) AT=43n
+.meas tran sa_read0 FIND v(sa_en) AT=29n
+.meas tran sa_read1 FIND v(sa_en) AT=43n
+.meas tran dout_reset0 FIND v(dout) AT=33n
+.meas tran dout_reset1 FIND v(dout) AT=47n
+.end

@@ -1,0 +1,7 @@
+{
+  "제공압축_SHA256": "bd995779c96eac3dec107f647a04bfad73ff18dbfcff6f544d8c9b546ab874e2",
+  "모델함수_출처": "rebuild_vss_m1_models_01.py",
+  "모델함수_SHA256": "4c75f3186ef474bcb7a7a90667b3be6e5ad25ec7aee0515ddebde4307fe5024b",
+  "시험함수_출처": "read_skylark_413_pair_02.py",
+  "시험함수_SHA256": "fbf65b4cc7e0b714ddbe6a75331b89ba5a29cb947afa2ba7d802eae6e6e427fc"
+}
